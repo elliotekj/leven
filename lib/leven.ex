@@ -1,8 +1,16 @@
 defmodule Leven do
   @moduledoc """
-  Documentation for `Leven`.
+  Compute the Levenshtein distance between two strings.
+
+  The Levenshtein distance, also known as edit distance, measures the difference
+  between two strings in terms of the minimum number of single-character edits
+  (insertions, deletions, or substitutions) required to change one string into
+  the other.
   """
 
+  @doc """
+  Returns the Levenshtein distance between two strings.
+  """
   @spec distance(String.t(), String.t()) :: integer()
   def distance(source, target) when source == target, do: 0
 
