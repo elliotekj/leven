@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github.com/elliotekj/leven/blob/master/logo.png" width="480" max-width="90%" alt="Leven" />
+    <img src="https://github.com/elliotekj/leven/blob/main/logo.png" width="480" max-width="90%" alt="Leven" />
 </p>
 
 Welcome to **Leven**, an efficient, tabulated implementation of the [Levenshtein
@@ -53,7 +53,7 @@ random strings of length `N` on my machine (Ryzen 7 / 16 Core / 32 GB).
 ## License
 
 Leven is released under the [`Apache License
-2.0`](https://github.com/elliotekj/leven/blob/master/LICENSE).
+2.0`](https://github.com/elliotekj/leven/blob/main/LICENSE).
 
 ## About
 
