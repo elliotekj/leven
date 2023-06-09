@@ -1,6 +1,7 @@
 defmodule Leven.MixProject do
   use Mix.Project
 
+  @name "Leven"
   @version "1.0.0"
   @repo_url "https://github.com/elliotekj/leven"
 
@@ -12,6 +13,8 @@ defmodule Leven.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       aliases: aliases(),
+      package: package(),
+      description: description(),
       docs: docs()
     ]
   end
@@ -37,9 +40,25 @@ defmodule Leven.MixProject do
     ]
   end
 
+  defp package do
+    [
+      name: @name,
+      maintainers: ["Elliot Jackson"],
+      licenses: ["Apache-2.0"],
+      links: %{"GitHub" => @repo_url}
+    ]
+  end
+
+  defp description do
+    """
+    An efficient, tabulated implementation of the Levenshtein distance algorithm
+    used to compute the edit distance between two strings.
+    """
+  end
+
   defp docs do
     [
-      name: "Leven",
+      name: @name,
       source_ref: "v#{@version}",
       canonical: "http://hexdocs.pm/leven",
       source_url: @repo_url,
