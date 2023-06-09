@@ -35,7 +35,7 @@ Two single-character edits are required to get from "house" to "horses":
 
 ## Benchmarks
 
-The benchmarks shows how many operations per second Leven can perform for two
+These benchmarks show how many operations per second Leven can perform for two
 random strings of length `N` on my machine (Ryzen 7 / 16 Core / 32 GB).
 
 | String Length | ops/sec | 
@@ -49,6 +49,8 @@ random strings of length `N` on my machine (Ryzen 7 / 16 Core / 32 GB).
 | N=64          | 863     |
 | N=128         | 152     |
 | N=256         | 23      |
+
+To benchmark Leven on your own machine, clone the repo and `mix bench`.
 
 ## License
 
