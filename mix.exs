@@ -1,7 +1,6 @@
 defmodule Leven.MixProject do
   use Mix.Project
 
-  @name "Leven"
   @version "1.0.0"
   @repo_url "https://github.com/elliotekj/leven"
 
@@ -42,7 +41,6 @@ defmodule Leven.MixProject do
 
   defp package do
     [
-      name: @name,
       maintainers: ["Elliot Jackson"],
       licenses: ["Apache-2.0"],
       links: %{"GitHub" => @repo_url}
@@ -58,7 +56,7 @@ defmodule Leven.MixProject do
 
   defp docs do
     [
-      name: @name,
+      name: "Leven",
       source_ref: "v#{@version}",
       canonical: "http://hexdocs.pm/leven",
       source_url: @repo_url,
