@@ -16,7 +16,7 @@ The package can be installed by adding `leven` to your list of dependencies in
 ```elixir
 def deps do
   [
-    {:leven, "~> 1.0.0"}
+    {:leven, "~> 1.0"}
   ]
 end
 ```
@@ -35,22 +35,7 @@ Two single-character edits are required to get from "house" to "horses":
 
 ## Benchmarks
 
-These benchmarks show how many operations per second Leven can perform for two
-random strings of length `N` on my machine (Ryzen 7 / 16 Core / 32 GB).
-
-| String Length | ops/sec | 
-|---------------|---------|
-| Empty LHS     | 2.5 M   |
-| Empty RHS     | 2.47 M  |
-| N=4           | 244.5 K |
-| N=8           | 86.57 K |
-| N=16          | 22.51 K |
-| N=32          | 4.67 K  |
-| N=64          | 863     |
-| N=128         | 152     |
-| N=256         | 23      |
-
-To benchmark Leven on your own machine, clone the repo and `mix bench`.
+To benchmark Leven on your machine, clone the repo and run `mix bench`.
 
 ## License
 
