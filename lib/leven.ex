@@ -25,47 +25,35 @@ defmodule Leven do
     source_len = length(source)
     target_len = length(target)
 
-    matrix = get_distance_table(source_len, target_len)
-    filled_matrix = process_rows(source_len, target_len, matrix, source, target)
-    get_distance(filled_matrix, source_len, target_len)
+    matrix = build_matrix(source_len, target_len, source, target)
+    get_distance(matrix, source_len, target_len)
   end
 
-  defp get_distance_table(source_len, target_len) do
-    first_row = Enum.reduce(0..target_len, {}, fn i, acc -> Tuple.append(acc, i) end)
-    rest_zeros = List.duplicate(0, target_len)
-    rest_rows = Enum.map(1..source_len, fn i -> List.to_tuple([i | rest_zeros]) end)
-    List.to_tuple([first_row | rest_rows])
+  defp build_matrix(source_len, target_len, source, target) do
+    Enum.reduce(1..source_len, %{}, fn y, acc ->
+      Enum.reduce(1..target_len, acc, fn x, acc ->
+        source_char = Enum.at(source, y - 1)
+        target_char = Enum.at(target, x - 1)
+
+        calculate_new_cell(x, y, acc, source_char, target_char)
+      end)
+    end)
   end
 
-  defp process_rows(rows, columns, matrix, source, target) do
-    Enum.reduce(1..rows, matrix, &process_columns(&1, columns, &2, source, target))
+  defp calculate_new_cell(x, y, acc, char, char) do
+    diag = Map.get(acc, {x - 1, y - 1}, 0)
+    Map.put(acc, {x, y}, diag)
   end
 
-  defp process_columns(i, columns, matrix, source, target) do
-    Enum.reduce(1..columns, matrix, &process_cell(i, &1, &2, source, target))
-  end
-
-  defp process_cell(i, j, matrix, source, target) do
-    source_char = Enum.at(source, i - 1)
-    target_char = Enum.at(target, j - 1)
-    new_cell = calculate_new_value(i, j, matrix, source_char, target_char)
-    new_row = put_elem(elem(matrix, i), j, new_cell)
-    put_elem(matrix, i, new_row)
-  end
-
-  defp calculate_new_value(i, j, matrix, source_char, target_char)
-       when source_char == target_char do
-    matrix |> elem(i - 1) |> elem(j - 1)
-  end
-
-  defp calculate_new_value(i, j, matrix, _source_char, _target_char) do
-    delete = (elem(matrix, i - 1) |> elem(j)) + 1
-    insert = (elem(matrix, i) |> elem(j - 1)) + 1
-    substitute = (elem(matrix, i - 1) |> elem(j - 1)) + 1
-    Enum.min([delete, insert, substitute])
+  defp calculate_new_cell(x, y, acc, _source_char, _target_char) do
+    delete = Map.get(acc, {x, y - 1}, 0) |> Kernel.+(1)
+    insert = Map.get(acc, {x - 1, y}, 0) |> Kernel.+(1)
+    sub = Map.get(acc, {x - 1, y - 1}, 0) |> Kernel.+(1)
+    min = Enum.min([delete, insert, sub])
+    Map.put(acc, {x, y}, min)
   end
 
   defp get_distance(matrix, source_len, target_len) do
-    matrix |> elem(source_len) |> elem(target_len)
+    Map.get(matrix, {target_len, source_len})
   end
 end

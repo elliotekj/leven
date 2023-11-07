@@ -1,6 +1,5 @@
 defmodule LevenTest do
   use ExUnit.Case
-  alias Leven
 
   describe "distance/2" do
     test "returns 0 when both strings are empty" do
