@@ -35,7 +35,7 @@ defmodule Leven.MixProject do
 
   defp aliases do
     [
-      bench: "run bench/benchmarks.exs"
+      bench: "run bench.exs"
     ]
   end
 
