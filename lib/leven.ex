@@ -30,30 +30,34 @@ defmodule Leven do
   end
 
   defp build_matrix(source_len, target_len, source, target) do
-    Enum.reduce(1..source_len, %{}, fn y, acc ->
-      Enum.reduce(1..target_len, acc, fn x, acc ->
-        source_char = Enum.at(source, y - 1)
-        target_char = Enum.at(target, x - 1)
+    for j <- 1..target_len, i <- 1..source_len, reduce: %{{0, 0} => 0} do
+      acc ->
+        source_char = Enum.at(source, i - 1)
+        target_char = Enum.at(target, j - 1)
 
-        calculate_new_cell(x, y, acc, source_char, target_char)
-      end)
-    end)
+        acc
+        |> Map.put({i, 0}, i)
+        |> Map.put({0, j}, j)
+        |> calculate_new_cell(i, j, source_char, target_char)
+    end
   end
 
-  defp calculate_new_cell(x, y, acc, char, char) do
-    diag = Map.get(acc, {x - 1, y - 1}, 0)
-    Map.put(acc, {x, y}, diag)
-  end
+  defp calculate_new_cell(acc, i, j, source_char, target_char) do
+    sub_cost =
+      case source_char == target_char do
+        true -> 0
+        false -> 1
+      end
 
-  defp calculate_new_cell(x, y, acc, _source_char, _target_char) do
-    delete = Map.get(acc, {x, y - 1}, 0) |> Kernel.+(1)
-    insert = Map.get(acc, {x - 1, y}, 0) |> Kernel.+(1)
-    sub = Map.get(acc, {x - 1, y - 1}, 0) |> Kernel.+(1)
+    delete = Map.get(acc, {i - 1, j}) |> Kernel.+(1)
+    insert = Map.get(acc, {i, j - 1}) |> Kernel.+(1)
+    sub = Map.get(acc, {i - 1, j - 1}) |> Kernel.+(sub_cost)
     min = Enum.min([delete, insert, sub])
-    Map.put(acc, {x, y}, min)
+
+    Map.put(acc, {i, j}, min)
   end
 
   defp get_distance(matrix, source_len, target_len) do
-    Map.get(matrix, {target_len, source_len})
+    Map.get(matrix, {source_len, target_len})
   end
 end

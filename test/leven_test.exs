@@ -47,5 +47,13 @@ defmodule LevenTest do
 
       assert Leven.distance(long_string1, long_string2) == 1
     end
+
+    test "returns the correct distance for misc strings" do
+      assert Leven.distance("lixir", "for") == 4
+      assert Leven.distance("Saturday", "Sunday") == 3
+      assert Leven.distance("Sunday", "Saturday") == 3
+      assert Leven.distance("kitten", "sitting") == 3
+      assert Leven.distance("elephant", "relevant") == 3
+    end
   end
 end
