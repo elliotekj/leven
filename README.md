@@ -8,6 +8,10 @@ distance, measures the difference between two strings in terms of the minimum
 number of single-character edits (insertions, deletions, or substitutions)
 required to change one string into the other.
 
+[![Hex.pm Version](https://img.shields.io/hexpm/v/leven.svg?style=flat)](https://hex.pm/packages/leven)
+[![Hex Docs](https://img.shields.io/badge/hex%20docs-blue)](https://hexdocs.pm/leven)
+[![Hex.pm License](https://img.shields.io/hexpm/l/leven.svg?style=flat)](https://hex.pm/packages/leven)
+
 ## Installation
 
 The package can be installed by adding `leven` to your list of dependencies in
